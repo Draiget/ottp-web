@@ -2,7 +2,7 @@ import {Component, Directive, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {FileUploader, FileLikeObject, FileUploaderOptions} from 'ng2-file-upload';
 
-const URL = 'https://ml.zontwelg.com/upload/';
+const URL = 'http://ml.zontwelg.com/api/upload/';
 
 @Component({
   templateUrl: './page-upload.html',
