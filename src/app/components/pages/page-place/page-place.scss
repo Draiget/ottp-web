@@ -1,0 +1,57 @@
+@import '../../../../sass/variables';
+
+$img-width: 480px;
+
+.image-upload-container {
+  font-size: 18px;
+  text-align: center;
+}
+
+.ml-up-space {
+  margin-top: 120px;
+}
+
+.ml-form {
+  margin-top: 50px;
+}
+
+.file-upload-input {
+  margin-top: 5px;
+  text-align: center;
+  background-color: #83bad0;
+  border-radius: 3px;
+  padding: 4px;
+  outline: none;
+
+  input[type=button] {
+    background-color: red;
+  }
+}
+
+.ml-data-container {
+  padding-top: 10px;
+  margin-left: $img-width + 20px;
+  .ml-field {
+    font-size: 16px;
+    text-align: left;
+    color: rgb(100,100,100);
+
+    &:nth-child(n+2) {
+      margin-top: 5px;
+    }
+
+    .ml-data-field {
+      display: block;
+      font-size: 18px;
+      color: black;
+    }
+  }
+}
+
+.ml-image {
+  width: $img-width;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+  float: left;
+}

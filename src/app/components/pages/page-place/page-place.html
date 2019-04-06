@@ -1,0 +1,33 @@
+<div class="page-holder">
+  <app-header-main-menu></app-header-main-menu>
+  <div class="page-container">
+    <div class="image-upload-container">
+      <div *ngIf="this.isUploadDone; else uploadProcessOrStart" class="ml-form">
+        <h1>Uploading done</h1>
+        <img id="imgPicPreview" class="ml-image" src="{{imgData}}"/>
+        <div class="ml-data-container" *ngIf="this.serverData != null">
+          <div class="ml-field mlf-car-brand">Car Brand<span class="ml-data-field">{{ this.serverData.car_brand }}</span></div>
+          <div class="ml-field mlf-car-model">Car Model<span class="ml-data-field">{{ this.serverData.car_model }}</span></div>
+          <div class="ml-field mlf-car-price">Price<span class="ml-data-field">{{ this.serverData.price }}</span></div>
+          <div class="ml-field mlf-car-year">Year<span class="ml-data-field">{{ this.serverData.year }}</span></div>
+          <div class="ml-field mlf-car-body">Body<span class="ml-data-field">{{ this.serverData.body }}</span></div>
+          <div class="ml-field mlf-car-color">Color<span class="ml-data-field">{{ this.serverData.color }}</span></div>
+          <div class="ml-field mlf-car-engine-volume">Engine Volume<span class="ml-data-field">{{ this.serverData.engine_volume }}</span></div>
+          <div class="ml-field mlf-car-engine-power">Engine Power<span class="ml-data-field">{{ this.serverData.engine_power }}</span></div>
+          <div class="ml-field mlf-car-engine-type">Engine Type<span class="ml-data-field">{{ this.serverData.engine_type }}</span></div>
+          <div class="ml-field mlf-car-transmission">Transmission<span class="ml-data-field">{{ this.serverData.transmission }}</span></div>
+          <div class="ml-field mlf-car-rudder">Rudder<span class="ml-data-field">{{ this.serverData.rudder }}</span></div>
+        </div>
+      </div>
+      <ng-template #uploadProcessOrStart>
+        <div *ngIf="!this.isUploading" class="ml-up-space">
+          <h1>Upload image to analyze</h1>
+          <input type="file" name="image" class="file-upload-input" ng2FileSelect [uploader]="uploader" />
+        </div>
+        <div *ngIf="this.isUploading" class="ml-up-space">
+          <h1>Image is uploading</h1>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
