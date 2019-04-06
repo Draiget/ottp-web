@@ -1,9 +1,10 @@
-import {Component, Directive, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Directive, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {FileUploader, FileLikeObject, FileUploaderOptions, FileItem, ParsedResponseHeaders} from 'ng2-file-upload';
 import {MLDataModel} from '../../../data/ml/MLDataModel';
-
-const URL = 'http://localhost:8756/api/upload/';
+import {NgForm} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {BackendURL} from '../../../../environments/constants';
 
 @Component({
   templateUrl: './page-place.html',
@@ -13,19 +14,23 @@ const URL = 'http://localhost:8756/api/upload/';
 
 export class PagePlaceComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
-    url: URL,
+    url: BackendURL + 'upload/',
     autoUpload: true,
     allowedFileType: ['image'],
     method: 'POST',
   });
 
+  placeAdUrl: string = URL + 'place/';
+
+  public isPreviewImg = false;
   public isUploading = false;
   public isUploadDone = false;
+  public isEditDone = false;
   public isUploadError: any = null;
   public serverData: MLDataModel;
   public imgData: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = this.onAfterAddingFile.bind(this);
@@ -49,24 +54,53 @@ export class PagePlaceComponent implements OnInit {
     fr.readAsDataURL(file._file);
   }
 
+  tryReUpload() {
+    this.isUploading = false;
+    this.isUploadDone = false;
+    this.isUploadError = null;
+  }
+
   onBeforeUploadItem(fileItem) {
     this.isUploading = true;
   }
 
   onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     this.isUploadDone = true;
+    this.isUploading = false;
     const data = JSON.parse(response);
+    if (data.error) {
+      console.error(data);
+      this.isUploadError = { error: data.message };
+      return;
+    }
     this.serverData = new MLDataModel(data)
     console.log('OnSuccess', this.serverData);
   }
 
   onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     this.isUploadDone = true;
-    if (response === undefined) {
+    this.isUploading = false;
+    if (response === undefined || response.length <= 0) {
       this.isUploadError = { error: 'Unknown server error' };
       return;
     }
     this.isUploadError = JSON.parse(response);
-    console.log('OnError', this.isUploadError);
+    console.error('OnError', this.isUploadError);
+  }
+
+  triggerImgPreview() {
+    this.isPreviewImg = !this.isPreviewImg;
+  }
+
+  onSubmit(form: NgForm) {
+    console.log(form.value);
+    this.http.post(BackendURL + 'place/', form.value).subscribe(value => {
+      if (value['error'] !== undefined && value['error']) {
+        console.error(value['message']);
+        return;
+      }
+      this.isEditDone = true;
+      console.log(value);
+    });
   }
 }

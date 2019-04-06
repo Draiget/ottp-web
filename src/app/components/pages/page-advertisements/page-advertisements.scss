@@ -2,6 +2,75 @@
 
 $img-width: 480px;
 
+.page-a-list {
+  h1 {
+    color: #788792;
+    font-size: 24px;
+    font-family: 'Raleway', 'PT Sans', sans-serif;
+    margin-top: 25px;
+    font-weight: 300;
+  }
+
+  .a-entry {
+    .left-side {
+      float: left;
+      padding: 15px 20px 20px;
+
+      .title {
+        display: block;
+        width: 100%;
+
+        h2 {
+          float: left;
+        }
+
+        .a-cost {
+          text-align: right;
+          float: right;
+        }
+
+        margin-bottom: 10px;
+      }
+
+      .description {
+        .col-items {
+          width: 150px;
+          display: inline-block;
+          vertical-align: top;
+
+          .a-field {
+            .a-label {
+              color: #a5b3be;
+              font-size: 14px;
+            }
+
+            .a-value {
+              font-size: 16px;
+              font-weight: bold;
+              color: #183b56;
+            }
+
+            &:nth-child(n+2){
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .right-side {
+      float: right;
+      max-height: 280px;
+
+      img {
+        max-height: 280px;
+        width: auto;
+      }
+    }
+  }
+}
+
+/* Old shit */
 .image-upload-container {
   font-size: 18px;
   text-align: center;

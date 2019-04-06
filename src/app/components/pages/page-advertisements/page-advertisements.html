@@ -1,6 +1,73 @@
 <div class="page-holder">
   <app-header-main-menu></app-header-main-menu>
-  <div class="page-container">
-
+  <div class="page-container page-a-list">
+    <h1>Advertisements placed by users</h1>
+    <div class="a-obtain" *ngIf="!this.dataReceived && this.dataReceivedError === null">
+      Loading
+    </div>
+    <div class="a-obtain" *ngIf="this.dataReceivedError != null">
+      {{ this.dataReceivedError }}
+    </div>
+    <div class="a-block a-entry" *ngFor="let advert of this.advList">
+      <div class="right-side">
+        <img src="{{ this.getImgLink(advert._id) }}">
+      </div>
+      <div class="left-side">
+        <div class="title">
+          <h2>{{ advert.car_brand }} {{ advert.car_model }}</h2>
+          <div class="a-cost">{{ advert.price }}</div>
+          <div class="clear-fix"></div>
+        </div>
+        <div class="description">
+          <div class="col-items">
+            <div class="a-field">
+              <div class="a-label">Brand</div>
+              <div class="a-value">{{ advert.car_brand }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Model</div>
+              <div class="a-value">{{ advert.car_model }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Year</div>
+              <div class="a-value">{{ advert.year }}</div>
+            </div>
+          </div>
+          <div class="col-items">
+            <div class="a-field">
+              <div class="a-label">Body Type</div>
+              <div class="a-value">{{ advert.body }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Color</div>
+              <div class="a-value">{{ advert.color }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Rudder</div>
+              <div class="a-value">{{ advert.rudder }}</div>
+            </div>
+          </div>
+          <div class="col-items">
+            <div class="a-field">
+              <div class="a-label">Engine Volume</div>
+              <div class="a-value">{{ advert.engine_volume }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Engine Power</div>
+              <div class="a-value">{{ advert.engine_power }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Engine Type</div>
+              <div class="a-value">{{ advert.engine_type }}</div>
+            </div>
+            <div class="a-field">
+              <div class="a-label">Transmission</div>
+              <div class="a-value">{{ advert.transmission }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear-fix"></div>
+    </div>
   </div>
 </div>

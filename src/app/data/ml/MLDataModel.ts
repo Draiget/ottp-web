@@ -1,4 +1,5 @@
 export class MLDataModel {
+  public _id: string;
   public car_brand: string;
   public car_model: string;
   public price: number;
@@ -16,6 +17,7 @@ export class MLDataModel {
       return;
     }
 
+    this._id = r.body._id;
     this.car_brand = r.body.car_brand;
     this.car_model = r.body.car_model;
     this.price = r.body.price;

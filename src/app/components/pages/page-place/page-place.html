@@ -1,22 +1,90 @@
 <div class="page-holder">
   <app-header-main-menu></app-header-main-menu>
+  <div class="page-container page-a-place">
+    <h1>Place advertisement</h1>
+
+    <div class="a-upload-block a-block">
+      <div class="a-upload-stage" *ngIf="!this.isUploadDone">
+        <h2>Upload image to analyze</h2>
+        <div *ngIf="isUploadError !== null" class="err-block">
+          <h3>Error occured</h3>
+          <span class="e-msg">{{ isUploadError.error }}</span>
+          <button class="up-retry" (click)="this.tryReUpload()">Try again</button>
+        </div>
+        <div *ngIf="!this.isUploading">
+          <input type="file" name="image" class="a-file-upload-in" ng2FileSelect [uploader]="uploader" />
+        </div>
+        <div *ngIf="this.isUploading && isUploadError === null">
+          <div class="a-upload-progress">
+            <h3>Uploading ...</h3>
+            <div class="a-upload-loader"> </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="a-edit-confirm" *ngIf="this.isEditDone;">
+        <h2>Submitted</h2>
+        <h3>You advertisement has submitted, have fun!</h3>
+      </div>
+
+      <div class="a-edit-stage" *ngIf="this.isUploadDone && !this.isEditDone">
+        <h2>Edit generatead info</h2>
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div class="a-description">
+            <input type="hidden" name="_id" [(ngModel)]="this.serverData._id"/>
+            <div class="a-field a-car-brand">Car Brand<input type="text" class="a-data-field" name="car_brand" [(ngModel)]="this.serverData.car_brand"/></div>
+            <div class="a-field a-car-model">Car Model<input class="a-data-field" name="car_model" [(ngModel)]="this.serverData.car_model"/></div>
+            <div class="a-field a-car-price">Price<input class="a-data-field" name="price" [(ngModel)]="this.serverData.price"/></div>
+            <div class="a-field a-car-year">Year<input class="a-data-field" name="year" [(ngModel)]="this.serverData.year"/></div>
+            <div class="a-field a-car-body">Body<input class="a-data-field" name="body" [(ngModel)]="this.serverData.body"/></div>
+            <div class="a-field a-car-color">Color<input class="a-data-field" name="color" [(ngModel)]="this.serverData.color"/></div>
+            <div class="a-field a-car-engine-volume">Engine Volume<input class="a-data-field" name="engine_volume" [(ngModel)]="this.serverData.engine_volume"/></div>
+            <div class="a-field a-car-engine-power">Engine Power<input class="a-data-field" name="engine_power" [(ngModel)]="this.serverData.engine_power"/></div>
+            <div class="a-field a-car-engine-type">Engine Type<input class="a-data-field" name="engine_type" [(ngModel)]="this.serverData.engine_type"/></div>
+            <div class="a-field a-car-transmission">Transmission<input class="a-data-field" name="transmission" [(ngModel)]="this.serverData.transmission"/></div>
+            <div class="a-field a-car-rudder">Rudder<input class="a-data-field" name="rudder" [(ngModel)]="this.serverData.rudder"/></div>
+          </div>
+          <div class="a-img">
+            <div class="a-img-container" (click)="this.triggerImgPreview()">
+              <img id="imgPicPreview" class="ml-image" src="{{imgData}}"/>
+              <div class="a-img-overlay">
+                <div class="a-img-text">
+                  <i class="fas fa-eye"></i>
+                </div>
+              </div>
+            </div>
+            <div class="a-img-preview" *ngIf="this.isPreviewImg" (click)="this.triggerImgPreview()">
+              <img class="a-img-modal" src="{{imgData}}" (click)="this.triggerImgPreview()">
+            </div>
+            <button class="a-place" type="submit">Place my ad</button>
+          </div>
+        </form>
+        <div class="clear-fix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="page-holder">
+  <app-header-main-menu></app-header-main-menu>
   <div class="page-container">
     <div class="image-upload-container">
       <div *ngIf="this.isUploadDone; else uploadProcessOrStart" class="ml-form">
         <h1>Uploading done</h1>
         <img id="imgPicPreview" class="ml-image" src="{{imgData}}"/>
         <div class="ml-data-container" *ngIf="this.serverData != null">
-          <div class="ml-field mlf-car-brand">Car Brand<span class="ml-data-field">{{ this.serverData.car_brand }}</span></div>
-          <div class="ml-field mlf-car-model">Car Model<span class="ml-data-field">{{ this.serverData.car_model }}</span></div>
-          <div class="ml-field mlf-car-price">Price<span class="ml-data-field">{{ this.serverData.price }}</span></div>
-          <div class="ml-field mlf-car-year">Year<span class="ml-data-field">{{ this.serverData.year }}</span></div>
-          <div class="ml-field mlf-car-body">Body<span class="ml-data-field">{{ this.serverData.body }}</span></div>
-          <div class="ml-field mlf-car-color">Color<span class="ml-data-field">{{ this.serverData.color }}</span></div>
-          <div class="ml-field mlf-car-engine-volume">Engine Volume<span class="ml-data-field">{{ this.serverData.engine_volume }}</span></div>
-          <div class="ml-field mlf-car-engine-power">Engine Power<span class="ml-data-field">{{ this.serverData.engine_power }}</span></div>
-          <div class="ml-field mlf-car-engine-type">Engine Type<span class="ml-data-field">{{ this.serverData.engine_type }}</span></div>
-          <div class="ml-field mlf-car-transmission">Transmission<span class="ml-data-field">{{ this.serverData.transmission }}</span></div>
-          <div class="ml-field mlf-car-rudder">Rudder<span class="ml-data-field">{{ this.serverData.rudder }}</span></div>
+          <div class="ml-field mlf-car-brand">Car Brand<span class="a-data-field">{{ this.serverData.car_brand }}</span></div>
+          <div class="ml-field mlf-car-model">Car Model<span class="a-data-field">{{ this.serverData.car_model }}</span></div>
+          <div class="ml-field mlf-car-price">Price<span class="a-data-field">{{ this.serverData.price }}</span></div>
+          <div class="ml-field mlf-car-year">Year<span class="a-data-field">{{ this.serverData.year }}</span></div>
+          <div class="ml-field mlf-car-body">Body<span class="a-data-field">{{ this.serverData.body }}</span></div>
+          <div class="ml-field mlf-car-color">Color<span class="a-data-field">{{ this.serverData.color }}</span></div>
+          <div class="ml-field mlf-car-engine-volume">Engine Volume<span class="a-data-field">{{ this.serverData.engine_volume }}</span></div>
+          <div class="ml-field mlf-car-engine-power">Engine Power<span class="a-data-field">{{ this.serverData.engine_power }}</span></div>
+          <div class="ml-field mlf-car-engine-type">Engine Type<span class="a-data-field">{{ this.serverData.engine_type }}</span></div>
+          <div class="ml-field mlf-car-transmission">Transmission<span class="a-data-field">{{ this.serverData.transmission }}</span></div>
+          <div class="ml-field mlf-car-rudder">Rudder<span class="a-data-field">{{ this.serverData.rudder }}</span></div>
         </div>
       </div>
       <ng-template #uploadProcessOrStart>
@@ -31,3 +99,4 @@
     </div>
   </div>
 </div>
+-->

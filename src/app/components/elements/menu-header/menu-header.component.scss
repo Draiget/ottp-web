@@ -1,1 +1,52 @@
 @import '../../../../sass/variables';
+
+.main-nav-bar {
+  background-color: #81daf7;
+
+  .nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+
+      .nav-link {
+        line-height: 87px;
+        display: block;
+        padding: 0;
+
+        font-size: 18px;
+        text-transform: uppercase;
+        color: #0e273a;
+        font-weight: bold;
+
+        &:nth-child(2+n) {
+          padding: 0 15px;
+        }
+
+        &:hover {
+          color: white;
+        }
+      }
+
+      .nav-link-create {
+        padding: 5px;
+        background-color: #c0f0ff;
+        color: #183b56;
+        border-radius: 4px;
+        vertical-align: middle;
+
+        &:hover {
+          background-color: #285462;
+          color: white;
+        }
+      }
+
+      &.r-side {
+        float: right;
+      }
+    }
+
+  }
+}

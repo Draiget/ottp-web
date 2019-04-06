@@ -2,6 +2,200 @@
 
 $img-width: 480px;
 
+.page-a-place {
+  h1 {
+    color: #788792;
+    font-size: 24px;
+    font-family: 'Raleway', 'PT Sans', sans-serif;
+    margin-top: 25px;
+    font-weight: 300;
+  }
+
+  .a-upload-block {
+    padding: 15px 20px 20px;
+
+    .err-block {
+      margin-top: 5px;
+      h3 {
+        color: #8a170d;
+      }
+    }
+
+    .up-retry {
+      margin-top: 10px;
+      display: block;
+      outline: none;
+      border-radius: 3px;
+      font-size: 16px;
+      background-color: #6b98aa;
+      color: white;
+      padding: 8px;
+      border: none;
+    }
+
+    .a-file-upload-in {
+      margin-top: 5px;
+      text-align: center;
+      background-color: #83bad0;
+      border-radius: 3px;
+      padding: 4px;
+      outline: none;
+    }
+
+    .a-upload-progress {
+      text-align: center;
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .a-upload-loader {
+        border: 21px solid #f3f3f3; /* Light grey */
+        border-top: 21px solid #83bad0; /* Blue */
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        animation: spin 2s linear infinite;
+        margin: 0 auto;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  .a-edit-stage {
+    .a-description {
+      margin-top: 10px;
+      float: left;
+
+      .a-field {
+        -webkit-appearance: none;
+        color: #a5b3be;
+        font-size: 14px;
+        padding-top: 3px;
+
+        &:nth-child(2+n) {
+          margin-top: 5px;
+        }
+
+        .a-data-field {
+          display: block;
+          font-size: 16px;
+          font-family: 'PT Sans', sans-serif !important;
+          color: #183b56;
+          outline: none;
+          background-color: #f6fdff;
+          padding: 5px 10px;
+          border-radius: 3px;
+          border: none;
+          border-bottom: 2px solid #c7dfe7;
+
+          &:hover {
+            border-bottom: 2px solid #71c4e0;
+          }
+
+          &:focus, &:active {
+            border-bottom: 2px solid #5c7e8c;
+          }
+        }
+      }
+    }
+
+    .a-img {
+      float: right;
+      text-align: right;
+
+      .a-place {
+        -webkit-appearance: none;
+        padding: 12px 10px;
+        background-color: #49a6c4;
+        outline: none;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+        border: none;
+        font-size: 16px;
+        display: block;
+        border-radius: 3px;
+        text-align: center;
+        font-family: 'PT Sans', sans-serif;
+        float: right;
+
+        &:hover {
+          background-color: #246b82;
+        }
+      }
+
+      .a-img-container {
+        position: relative;
+
+        .a-img-overlay {
+          opacity: 0;
+          background-color: rgba(129, 218, 247, 0.49);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          width: 100%;
+          height: 100%;
+          transition: opacity 0.4s;
+          cursor: pointer;
+          border-radius: 5px;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          .a-img-text {
+            position: relative;
+            top: 40%;
+            color: #17494c;
+            padding: 4px;
+            font-size: 32px;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+          }
+        }
+      }
+
+      .a-img-preview {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        background-color: rgba(1,1,1,0.8);
+
+        .a-img-modal {
+          position: relative;
+          width: 80%;
+          height: auto;
+          margin: 0 auto;
+          display: block;
+        }
+      }
+
+      .ml-image {
+        width: $img-width;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 5px;
+        display: block;
+        margin-bottom: 10px;
+
+        &:hover {
+
+        }
+      }
+    }
+  }
+}
+
+
+
+/* Old shit */
 .image-upload-container {
   font-size: 18px;
   text-align: center;
@@ -46,12 +240,4 @@ $img-width: 480px;
       color: black;
     }
   }
-}
-
-.ml-image {
-  width: $img-width;
-  height: auto;
-  border-radius: 5px;
-  margin-top: 5px;
-  float: left;
 }
