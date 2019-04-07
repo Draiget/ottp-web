@@ -1,0 +1,12 @@
+version: "3"
+services:
+  nginx:
+    image: nginx-ml:latest
+    container_name: nginx-ml
+    restart: always
+    ports:
+      - "8091:8091"
+    volumes:
+    - ./container/dist/:/var/www/
+    build:
+      context: ./container
