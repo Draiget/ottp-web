@@ -27,7 +27,7 @@ export class PagePlaceComponent implements OnInit {
   public isUploadDone = false;
   public isEditDone = false;
   public isUploadError: any = null;
-  public serverData: MLDataModel;
+  public serverData: MLDataModel = null;
   public imgData: any;
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -71,6 +71,7 @@ export class PagePlaceComponent implements OnInit {
     if (data.error) {
       console.error(data);
       this.isUploadError = { error: data.message };
+      this.serverData = null;
       return;
     }
     this.serverData = new MLDataModel(data)

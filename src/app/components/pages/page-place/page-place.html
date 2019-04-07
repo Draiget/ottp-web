@@ -4,14 +4,14 @@
     <h1>Place advertisement</h1>
 
     <div class="a-upload-block a-block">
-      <div class="a-upload-stage" *ngIf="!this.isUploadDone">
+      <div class="a-upload-stage" *ngIf="!this.isUploadDone || isUploadError !== null">
         <h2>Upload image to analyze</h2>
         <div *ngIf="isUploadError !== null" class="err-block">
           <h3>Error occured</h3>
           <span class="e-msg">{{ isUploadError.error }}</span>
           <button class="up-retry" (click)="this.tryReUpload()">Try again</button>
         </div>
-        <div *ngIf="!this.isUploading">
+        <div *ngIf="!this.isUploading && isUploadError === null">
           <input type="file" name="image" class="a-file-upload-in" ng2FileSelect [uploader]="uploader" />
         </div>
         <div *ngIf="this.isUploading && isUploadError === null">
@@ -27,9 +27,9 @@
         <h3>You advertisement has submitted, have fun!</h3>
       </div>
 
-      <div class="a-edit-stage" *ngIf="this.isUploadDone && !this.isEditDone">
+      <div class="a-edit-stage" *ngIf="this.isUploadDone && !this.isEditDone && this.serverData !== null">
         <h2>Edit generatead info</h2>
-        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
           <div class="a-description">
             <input type="hidden" name="_id" [(ngModel)]="this.serverData._id"/>
             <div class="a-field a-car-brand">Car Brand<input type="text" class="a-data-field" name="car_brand" [(ngModel)]="this.serverData.car_brand"/></div>
